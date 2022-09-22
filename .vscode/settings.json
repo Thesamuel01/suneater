@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+      "EditorConfig.EditorConfig",
+      "JakeBecker.elixir-ls",
+      "phoenixframework.phoenix"
+  ]
+}

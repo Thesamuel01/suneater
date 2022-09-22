@@ -32,3 +32,6 @@ suneater-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# IGNORE THE ENVIROMENT VARIABLE FILE
+.env
+
