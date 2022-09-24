@@ -1,4 +1,4 @@
-defmodule SuneaterWeb.PageController do
+defmodule SuneaterWeb.RoomController do
   use SuneaterWeb, :controller
 
   def index(conn, _params) do
