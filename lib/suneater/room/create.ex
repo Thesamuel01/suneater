@@ -3,6 +3,7 @@ defmodule Suneater.Room.Create do
 
   def call(params) do
     params
+    |> Map.put("type", "community")
     |> Room.build()
     |> create_room()
   end
