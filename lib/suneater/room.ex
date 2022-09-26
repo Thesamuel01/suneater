@@ -8,6 +8,7 @@ defmodule Suneater.Room do
     field :description, :string
     field :name, :string
     field :topic, :string
+    field :type, :string
     timestamps()
   end
 
@@ -19,7 +20,7 @@ defmodule Suneater.Room do
 
   def changeset(params) do
     %__MODULE__{}
-    |> cast(params, [:name, :description, :topic])
+    |> cast(params, [:name, :description, :topic, :type])
     |> validate_required([:name])
     |> unique_constraint(:name)
     |> validate_length(:name, min: 5, max: 30)
