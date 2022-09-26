@@ -17,9 +17,10 @@ defmodule SuneaterWeb.Router do
   scope "/", SuneaterWeb do
     pipe_through :browser
 
-    get "/", RoomController, :index
-    get "/rooms/new", RoomController, :new
-    post "/rooms", RoomController, :create
+    live_session :default do
+      live "/", LobbyLive
+      live "/rooms/new", CreateLive
+    end
   end
 
   # Other scopes may use custom stacks.
