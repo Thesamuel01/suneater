@@ -1,0 +1,25 @@
+<div>
+  <div>
+    <div>
+      <ul>
+        <li><button phx-click="general_room">General Rooms</button></li>
+        <li><button phx-click="community_room">Community Rooms</button></li>
+        <li><button phx-click="settings">Community Rooms</button></li>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <h2>Welcome to Suneater a real time chat app</h2>
+    <section>
+      <div>
+        <ul>
+          <%= for room <- @rooms do %>
+            <li>
+              <%= room.name %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>

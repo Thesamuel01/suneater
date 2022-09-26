@@ -1,9 +1,7 @@
 defmodule Suneater do
-  @moduledoc """
-  Suneater keeps the contexts that define your domain
-  and business logic.
+  alias Suneater.Room
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  defdelegate get_all_rooms(), to: Room.GetAll, as: :call
+  defdelegate get_all_general_rooms(), to: Room.General.GetAll, as: :call
+  defdelegate create_room(params), to: Room.Create, as: :call
 end
