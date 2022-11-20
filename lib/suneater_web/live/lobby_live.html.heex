@@ -1,25 +1,122 @@
-<div>
-  <div>
-    <div>
+<div x-data="{ openSideMenu: false, openMobileMenu: false }">
+  <nav class="bg-white shadow-lg">
+    <div class="w-screen px-5 bg-indigo-500" >
+      <div class="flex space-x-7 justify-between">
+        <div class=" flex justify-between">
+          <div class="hidden items-center md:flex">
+            <button class="outline-none menu-button" x-on:click="openSideMenu = ! openSideMenu">
+              <svg class=" w-6 h-6 text-white hover:text-indigo-900 "
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="hidden items-center flex-shrink-0 text-white mx-3 md:flex">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
+            <span class="font-semibold text-xl tracking-tight">Suneater</span>
+          </div>
+        </div>
+          <!-- Primary Navbar items -->
+          <div class='max-w-md mx-auto my-3 md:w-1/2'>
+            <div class="relative flex items-center w-full h-10 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+              <div class="grid place-items-center h-full w-12 text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+
+              <input
+              class="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+              type="text"
+              id="search"
+              placeholder="Search something.." />
+            </div>
+          </div>
+          <div/>
+        <!-- Mobile menu button -->
+        <div class="md:hidden flex items-center">
+          <button class="outline-none" x-on:click="openMobileMenu = ! openMobileMenu">
+            <svg class=" w-6 h-6 text-white hover:text-indigo-900 "
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- mobile menu -->
+    <div x-show="openMobileMenu" x-transition x-on:click="openMobileMenu = ! openMobileMenu">
       <ul>
-        <li><button phx-click="general_room">General Rooms</button></li>
-        <li><button phx-click="community_room">Community Rooms</button></li>
-        <li><button phx-click="settings">Community Rooms</button></li>
+        <li><button phx-click="profile" class="w-full text-left block text-sm px-2 py-4 bg-gray-100 hover:bg-gray-300 transition duration-300">Profile</button></li>
+        <li><button phx-click="general_rooms" class="w-full text-left block text-sm px-2 py-4 bg-gray-100 hover:bg-gray-300 transition duration-300">General Rooms</button></li>
+        <li><button phx-click="community_rooms" class="w-full text-left block text-sm px-2 py-4 bg-gray-100 hover:bg-gray-300 transition duration-300">Community Rooms</button></li>
+        <li><button phx-click="settings" class="w-full text-left block text-sm px-2 py-4 bg-gray-100 hover:bg-gray-300 transition duration-300">Settings</button></li>
       </ul>
     </div>
-  </div>
-  <div>
-    <h2>Welcome to Suneater a real time chat app</h2>
-    <section>
-      <div>
-        <ul>
-          <%= for room <- @rooms do %>
+  </nav>
+  <div class="flex h-screen">
+    <aside class="hidden w-64 md:block" aria-label="Sidebar" x-show="openSideMenu" x-transition >
+      <div class="h-full overflow-y-auto py-4 px-3 bg-gray-100 rounded dark:bg-gray-800">
+          <ul class="space-y-2">
             <li>
+              <button class="w-full flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700" phx-click="profile">
+                <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                <span class="ml-3 whitespace-nowrap">Profile</span>
+              </button>
+            </li>
+            <li>
+              <button class="w-full flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700" phx-click="general_rooms">
+                <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                <span class="ml-3 whitespace-nowrap">General Rooms</span>
+              </button>
+            </li>
+            <li>
+              <button class="w-full flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700" phx-click="community_rooms">
+                <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+                <span class="ml-3 whitespace-nowrap">Community Rooms</span>
+              </button>
+            </li>
+            <li>
+              <button class="w-full flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700" phx-click="settings">
+                <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span class="ml-3 whitespace-nowrap">Settings</span>
+              </button>
+            </li>
+          </ul>
+      </div>
+    </aside>
+    <div class="container flex flex-col items-center mx-auto w-full md:w-3/4">
+      <div class="w-3/4 bg-gray-300 p-6 my-8 rounded-xl">
+        <div>
+          <h1 class="text-2xl font-bold mb-4">Welcome to Suneater</h1>
+          <p>A real time chat app where you can join in a general room create by us, or join in any other room made by community</p>
+        </div>
+        <div>
+          <button phx-click="create_room">Create a Room</button>
+        </div>
+      </div>
+      <div class="w-3/4">
+        <h2>Rooms</h2>
+        <ul class="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          <%= for room <- @rooms do %>
+            <li class="flex items-center h-20 py-2 px-4 w-full text-lg font-medium text-left border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
               <%= room.name %>
             </li>
           <% end %>
         </ul>
       </div>
-    </section>
+    </div>
   </div>
 </div>
