@@ -1,6 +1,7 @@
 package com.client;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -13,16 +14,57 @@ public class ClientTask {
 
         System.out.println("Connection established");
 
-        OutputStream outputStreamClient = socket.getOutputStream();
-        PrintStream printStream = new PrintStream(outputStreamClient);
-        printStream.println("c1");
+        Thread sendThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OutputStream outputStreamClient = socket.getOutputStream();
+                    PrintStream output = new PrintStream(outputStreamClient);
+                    Scanner keyboard = new Scanner(System.in);
 
-        Scanner keyboard = new Scanner(System.in);
-        keyboard.nextLine();
+                    while (keyboard.hasNextLine()) {
+                        String line = keyboard.nextLine();
 
-        printStream.close();
-        keyboard.close();
+                        if (line.trim().equals("")) {
+                            break;
+                        }
+
+                        output.println(line);
+                    }
+
+                    output.close();
+                    keyboard.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        Thread responseThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    System.out.println("Receiving server data...");
+                    InputStream inputStream = socket.getInputStream();
+                    Scanner serverResponse = new Scanner(inputStream);
+
+                    while (serverResponse.hasNextLine()) {
+                        String line = serverResponse.nextLine();
+                        System.out.println(line);
+                    }
+
+                    serverResponse.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        sendThread.start();
+        responseThread.start();
+        sendThread.join();
+
+        System.out.println("Closing socket " + socket);
         socket.close();
     }
-
 }
