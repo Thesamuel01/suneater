@@ -1,6 +1,6 @@
 package com.server;
 
-import com.server.exceptionHandler.ExceptionHandler;
+import com.server.exception.ExceptionHandler;
 import com.server.tasks.DeliveryTask;
 
 import java.io.IOException;
@@ -31,7 +31,8 @@ public class ServerTask {
                 number++;
 
                 thread.setUncaughtExceptionHandler(new ExceptionHandler());
-                return null;
+
+                return thread;
             }
         });
         this.isRunning = new AtomicBoolean(true);

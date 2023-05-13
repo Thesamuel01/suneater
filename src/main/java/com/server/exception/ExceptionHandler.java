@@ -1,4 +1,4 @@
-package com.server.exceptionHandler;
+package com.server.exception;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     @Override
